@@ -2,19 +2,29 @@
 NAM = project
 EXT = .exe
 
-#? External stuff
-INC += 
-LIB = 
-
 #? Project files
 SRC = $(shell find -name "*.cpp")
 INC = -I include/
+
+#? External stuff
+ifeq ($(OS),Windows_NT)
+INC +=
+LIB +=
+else
+INC +=
+LIB +=
+endif
 
 #? Compillation settings
 CCC = g++
 FLG = 
 
 #? Compilation variables
+ifeq ($(OS),Windows_NT)
+EXT = .exe
+else
+EXT = .out
+endif
 BIN = $(NAM)$(EXT)
 OBJ = $(SRC:.cpp=.o)
 DEP = $(patsubst %.o, %.d, $(OBJ))
